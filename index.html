@@ -5,6 +5,22 @@
   <title>AR Organ Visualization</title>
   <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
   <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <style>
+    /* Style for the instruction text */
+    .instructions {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: sans-serif;
+      text-align: center;
+      z-index: 10; /* Ensure the text is on top */
+    }
+  </style>
 </head>
 <body style="margin : 0px; overflow: hidden;">
   <a-scene embedded arjs>
@@ -13,5 +29,23 @@
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
+
+  <div class="instructions">
+    Point your camera at the heart image.
+  </div>
+
+  <script>
+    // JavaScript to show/hide instructions
+    const scene = document.querySelector('a-scene');
+    const instructions = document.querySelector('.instructions');
+
+    scene.addEventListener('markerFound', () => {
+      instructions.style.display = 'none'; // Hide instructions when marker is found
+    });
+
+    scene.addEventListener('markerLost', () => {
+      instructions.style.display = 'block'; // Show instructions when marker is lost
+    });
+  </script>
 </body>
 </html>
